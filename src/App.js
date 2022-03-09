@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+/*
+ * @Author: cos
+ * @Date: 2022-03-09 17:47:00
+ * @LastEditTime: 2022-03-09 18:12:26
+ * @LastEditors: cos
+ * @Description: 
+ * @FilePath: \cosine-ui\src\App.js
+ */
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// src/App.js
+
+import React, { Component } from 'react';
+import { DatePicker } from './components';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <DatePicker />
+      </div>
+    );
+  }
 }
 
 export default App;
