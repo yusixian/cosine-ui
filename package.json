@@ -1,7 +1,9 @@
 {
-  "private": true,
-  "name": "cosine-ui",
-  "version": "1.0.0",
+  "name": "@cosine_yu/cosine-ui",
+  "license": "MIT",
+  "version": "0.1.0",
+  "description": "🌸 A simple and elegant component library.",
+  "keywords": ["components", "ui", "react", "react-component", "tailwind", "typescript"],
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -11,7 +13,8 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "pub": "yarn publish --access public"
   },
   "files": [
     "dist"
