@@ -12,7 +12,19 @@ export default defineConfig({
   title: 'cosine-ui',
   favicon: 'https://ysx.cosine.ren/img/avatar.jpg',
   logo: 'https://ysx.cosine.ren/img/avatar.jpg',
-  outputPath: 'docs-dist',
   mode: 'site',
-  // more config: https://d.umijs.org/config
+  outputPath: 'docs-dist',
+  locales: [
+    ['zh-CN', '中文'],
+    ['en-US', 'English'],
+  ],
+  // 单语言配置方式如下
+  navs: [
+    null, // null 值代表保留约定式生成的导航，只做增量配置
+    {
+      title: 'GitHub',
+      path: 'https://github.com/yusixian/cosine-ui',
+    },
+  ],
+  extraPostCSSPlugins: [require('tailwindcss'), require('autoprefixer')],
 })
