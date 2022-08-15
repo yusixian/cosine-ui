@@ -1,16 +1,11 @@
 import classNames from 'classnames'
 import React, { LegacyRef } from 'react'
+import Loading from '../Loading'
 
 export type ButtonProps = {
-  /**
-   * 按钮类型
-   * @default default
-   */
+  /** 按钮类型 */
   type?: 'default' | 'primary' | 'link' | 'unstyle'
-  /**
-   * 按钮大小
-   * @default middle
-   */
+  /** 按钮大小 */
   size?: 'large' | 'middle' | 'small'
   /** 点击事件 */
   onClick?: () => void
@@ -70,6 +65,7 @@ const Button = React.forwardRef(function ButtonInner(
       ref={ref}
       disabled={disabled}
     >
+      <Loading show={loading} className="mr-2" />
       {children}
     </button>
   )
@@ -77,5 +73,6 @@ const Button = React.forwardRef(function ButtonInner(
 Button.defaultProps = {
   type: 'default',
   size: 'middle',
+  loading: false,
 }
 export default Button

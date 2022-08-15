@@ -1,16 +1,21 @@
 import classNames from 'classnames'
 import React from 'react'
 import './script/iconfont.js'
-
-export type IconTypes = 'search' | 'close' | 'voice' | 'photo' | 'delete' | 'user' | 'github' | 'juejin' | 'lightOrDark'
+import { IconTypes } from './type'
 
 export type IconProps = {
+  /** 图标唯一类型 */
   type: IconTypes
-  className?: string
-  style?: React.CSSProperties
+  /** 图标点击事件 */
   onClick?: () => void
-  show?: boolean // 默认为显示 true
-  href?: string // 可以点的话，需要指定 href
+  /** 图标显示与否 */
+  show?: boolean
+  /** 图标链接 */
+  href?: string
+  /** 组件额外的 CSS className */
+  className?: string
+  /** 组件额外的 CSS style */
+  style?: React.CSSProperties
 }
 
 const IconFont = ({ type, style, className, onClick }: IconProps) => {
