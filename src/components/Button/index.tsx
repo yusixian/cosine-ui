@@ -39,7 +39,7 @@ const ghostClass = {
 }
 const dangerClass = {
   default: 'text-red-500 border-red-500 hover:border-red-400 hover:text-red-400',
-  primary: 'bg-red-500  text-red-500 border-red-500 hover:bg-red-400 hover:text-red-400 hover:border-red-400',
+  primary: 'bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400',
   link: 'text-red-500 hover:text-red-400',
 }
 const sizeClass = {
