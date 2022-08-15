@@ -24,7 +24,9 @@ export type SpaceProps = {
    * @default middle
    */
   gap?: number | 'small' | 'middle' | 'large'
+  /** 组件额外的 CSS className */
   className?: string
+  /** 组件额外的 CSS style */
   style?: React.CSSProperties
 }
 const SpaceWrapper = styled.div`

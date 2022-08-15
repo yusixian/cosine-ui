@@ -110,6 +110,10 @@ export default () => (
 )
 ```
 
+### Loading
+
+<code src="./demo.tsx"></code>
+
 <API></API>
 
 ## 组件源码
