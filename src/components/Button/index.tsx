@@ -6,7 +6,7 @@ export type ButtonProps = {
    * 按钮类型
    * @default default
    */
-  type?: 'default' | 'primary' | 'link'
+  type?: 'default' | 'primary' | 'link' | 'unstyle'
   /**
    * 按钮大小
    * @default middle
@@ -28,18 +28,19 @@ export type ButtonProps = {
   style?: React.CSSProperties
 }
 const typeClass = {
-  default: 'bg-white border-gray-300 hover:border-blue-500 hover:text-blue-500',
+  default: 'bg-white border-gray-500 hover:border-blue-500 hover:text-blue-500',
   primary: 'bg-blue-500 border-blue-500 text-white hover:bg-blue-400 hover:border-blue-400',
   link: 'border-transparent hover:text-blue-500',
 }
 const ghostClass = {
   default: 'border-white text-white hover:border-blue-500 hover:text-blue-500',
-  primary: '!bg-transparent text-blue-500 border-blue-500 hover:text-blue-400 hover:border-blue-400',
+  primary: 'bg-transparent text-blue-500 border-blue-500 hover:text-blue-400 hover:border-blue-400',
   link: 'border-transparent text-white hover:text-blue-500',
 }
+
 const dangerClass = {
   default: 'text-red-500 border-red-500 hover:border-red-400 hover:text-red-400',
-  primary: 'bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400',
+  primary: 'bg-red-500 text-[#fff] border-red-500 hover:bg-red-400 hover:text-[#fff] hover:border-red-400',
   link: 'text-red-500 hover:text-red-400',
 }
 const sizeClass = {
@@ -53,13 +54,17 @@ const Button = React.forwardRef(function ButtonInner(
 ) {
   return (
     <button
-      className={classNames(
-        'box-border border transition',
-        sizeClass[size || 'middle'],
-        danger ? dangerClass[type || 'default'] : null,
-        ghost ? ghostClass[type || 'default'] : typeClass[type || 'default'],
-        className,
-      )}
+      className={
+        type === 'unstyle'
+          ? className
+          : classNames(
+              'box-border border transition',
+              sizeClass[size || 'middle'],
+              danger ? dangerClass[type || 'default'] : null,
+              ghost ? ghostClass[type || 'default'] : typeClass[type || 'default'],
+              className,
+            )
+      }
       style={style}
       onClick={loading ? undefined : onClick}
       ref={ref}
