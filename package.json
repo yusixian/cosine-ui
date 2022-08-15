@@ -1,7 +1,7 @@
 {
   "name": "cosine-ui",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "🌸 A simple and elegant component library.",
   "keywords": [
     "components",
@@ -51,12 +51,14 @@
     "classnames": "^2.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.2.0",
+    "styled-components": "^5.3.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^13.0.0",
     "@types/jest": "^27.0.3",
+    "@types/styled-components": "^5.1.26",
     "@umijs/fabric": "^2.8.1",
     "@umijs/test": "^3.0.5",
     "dumi": "^1.1.0",

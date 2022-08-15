@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+	svg, img {
+		display: inline;
+	}
+	ul {
+		list-style:disc
+	}
 	.icon {
 		width: 1em;
 		height: 1em;

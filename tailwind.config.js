@@ -1,4 +1,6 @@
 module.exports = {
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
   darkMode: 'class',
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './store/**/*.{js,ts,jsx,tsx}'],
   theme: {

@@ -6,7 +6,7 @@ export type ButtonProps = {
    * 按钮类型
    * @default default
    */
-  type?: 'default' | 'primary' | 'danger' | 'ghost'
+  type?: 'default' | 'primary' | 'link'
   /**
    * 按钮大小
    * @default middle
@@ -14,6 +14,10 @@ export type ButtonProps = {
   size?: 'large' | 'middle' | 'small'
   /** 点击事件 */
   onClick?: () => void
+  /** 是否为危险按钮（红色警告） */
+  danger?: boolean
+  /** 是否为幽灵按钮 */
+  ghost?: boolean
   /** 是否禁用 */
   disabled?: boolean
   /** 是否加载中 */
@@ -24,26 +28,36 @@ export type ButtonProps = {
   style?: React.CSSProperties
 }
 const typeClass = {
-  default: 'border-gray-300 hover:border-blue-500 hover:text-blue-500',
+  default: 'bg-white border-gray-300 hover:border-blue-500 hover:text-blue-500',
   primary: 'bg-blue-500 border-blue-500 text-white hover:bg-blue-400 hover:border-blue-400',
-  danger: 'text-red-500 border-red-500 hover:bg-red-500 hover:text-white',
-  ghost: 'hover:text-blue-500 hover:border-blue-500',
+  link: 'border-transparent hover:text-blue-500',
+}
+const ghostClass = {
+  default: 'border-white text-white hover:border-blue-500 hover:text-blue-500',
+  primary: '!bg-transparent text-blue-500 border-blue-500 hover:text-blue-400 hover:border-blue-400',
+  link: 'border-transparent text-white hover:text-blue-500',
+}
+const dangerClass = {
+  default: 'text-red-500 border-red-500 hover:border-red-400 hover:text-red-400',
+  primary: 'bg-red-500  text-red-500 border-red-500 hover:bg-red-400 hover:text-red-400 hover:border-red-400',
+  link: 'text-red-500 hover:text-red-400',
 }
 const sizeClass = {
-  large: 'py-5 px-8',
-  middle: 'py-1 px-2',
-  small: 'p-1',
+  large: 'py-2 px-5',
+  middle: 'py-1 px-4',
+  small: 'px-1',
 }
 const Button = React.forwardRef(function ButtonInner(
-  { type, size, className, onClick, disabled, loading, style, children }: React.PropsWithChildren<ButtonProps>,
+  { type, size, className, onClick, disabled, danger, ghost, loading, style, children }: React.PropsWithChildren<ButtonProps>,
   ref: LegacyRef<HTMLButtonElement>,
 ) {
   return (
     <button
       className={classNames(
-        'box-border border transition ease-in-out hover:shadow-md',
-        typeClass[type || 'primary'],
+        'box-border border transition',
         sizeClass[size || 'middle'],
+        danger ? dangerClass[type || 'default'] : null,
+        ghost ? ghostClass[type || 'default'] : typeClass[type || 'default'],
         className,
       )}
       style={style}

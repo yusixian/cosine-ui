@@ -2,24 +2,14 @@
 
 [IconFont 图标库地址](https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=3572517&keyword=&project_type=&page=)
 
-```ts
-export type IconTypes = 'search' | 'close' | 'voice' | 'photo' | 'delete' | 'user' | 'github' | 'juejin' | 'lightOrDark'
-
-export type IconProps = {
-  type: IconTypes
-  className?: string
-  style?: React.CSSProperties
-  onClick?: () => void // 点击事件
-  show?: boolean // 默认为显示 true
-  href?: string // 可以点的话，需要指定 href
-}
-```
-
 利用 iconfont 下载下来的 js，以 symbol 形式引用，因此会根据当前字体颜色和大小改变 icon 的颜色和大小
 
 ## 演示
 
 ```tsx
+/**
+ * defaultShowCode: true
+ */
 import React from 'react'
 import { Space, Icon } from 'cosine-ui'
 
@@ -35,7 +25,7 @@ export default () => (
 )
 ```
 
-## 所有图标
+### 所有图标
 
 所有图标如下：
 

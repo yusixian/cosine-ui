@@ -6,9 +6,31 @@
 
 [组件库文档](https://ui.cosine.ren/)
 
-## Getting Started
+cosine-ui 是出于个人兴趣开发的一个 React 组件库，尝试了 tailwind+TypeScript 在组件库中的实践，并使用 [Tailwind JIT mode](https://www.tailwindcss.cn/docs/just-in-time-mode) 开发，无需引入全量 Tailwind CSS，使用 dumi 进行文档的生成
 
-Install dependencies,
+此组件库还在开发中，还有很多地方有待完善，包括测试用例、通用组件等
+
+## 项目中安装
+
+在开始之前，需要具备 [Nodejs](https://nodejs.org/en/) 环境或使用 [yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)
+
+从 npm 或 yarn 安装并引入 cosine-ui
+
+```
+npm i cosine-ui
+# or
+yarn add cosine-ui
+```
+
+## 从源码构建
+
+下载
+
+```
+git clone git@github.com:yusixian/cosine-ui.git
+```
+
+安装依赖
 
 ```bash
 npm i
@@ -16,7 +38,7 @@ npm i
 yarn
 ```
 
-Start the dev server,
+以开发模式运行
 
 ```bash
 npm start
@@ -24,7 +46,7 @@ npm start
 yarn start
 ```
 
-Build documentation,
+构建文档
 
 ```bash
 npm run docs:build
@@ -32,13 +54,15 @@ npm run docs:build
 yarn docs:build
 ```
 
-Run test,
+运行测试
 
 ```bash
-$ npm test
+npm test
+# or
+yarn test
 ```
 
-Build library via `father`,
+通过 `father` 构建 dist 产物
 
 ```bash
 $ npm run build
