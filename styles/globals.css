@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  .icon {
-    width: 1em;
-    height: 1em;
-    overflow: hidden;
-    vertical-align: -0.15em;
-    fill: currentColor;
-  }
+	svg, img {
+		display: inline;
+	}
+	ul {
+		list-style:disc
+	}
+	.icon {
+		width: 1em;
+		height: 1em;
+		overflow: hidden;
+		vertical-align: -0.15em;
+		fill: currentColor;
+	}
 }

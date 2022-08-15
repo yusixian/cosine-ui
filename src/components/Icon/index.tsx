@@ -21,12 +21,15 @@ const IconFont = ({ type, style, className, onClick }: IconProps) => {
   )
 }
 
-const Icon = ({ show = true, href, className, ...attr }: IconProps) => {
+const Icon = ({ show, href, className, ...attr }: IconProps) => {
   if (!href) return <>{show && <IconFont className={classNames('cursor-pointer', className)} {...attr} />}</>
   return (
     <a href={href} className="cursor-pointer">
       {show && <IconFont className={className} {...attr} />}
     </a>
   )
+}
+Icon.defaultProps = {
+  show: true,
 }
 export default Icon
