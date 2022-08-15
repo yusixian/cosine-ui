@@ -8,6 +8,8 @@
 
 默认为 default 按钮
 
+default 表示默认按钮，primary 表示主要按钮，link 表示无边框按钮， unstyle 表示不带任何样式的按钮（方便自己定制）
+
 ```tsx
 /**
  * defaultShowCode: true
@@ -16,9 +18,19 @@ import React from 'react'
 import { Space, Button } from 'cosine-ui'
 export default () => (
   <Space>
-    <Button type="default">Default</Button>
-    <Button type="primary">Primary</Button>
-    <Button type="link">Link</Button>
+    <Button type="default" onClick={() => console.log('click Default!')}>
+      Default
+    </Button>
+    <Button type="primary" onClick={() => console.log('click Primary!')}>
+      Primary
+    </Button>
+    <Button type="link" onClick={() => console.log('click Link!')}>
+      Link
+    </Button>
+    <Button type="unstyle" onClick={() => console.log('click Unstyle!')}>
+      {' '}
+      Unstyle
+    </Button>
   </Space>
 )
 ```
@@ -44,7 +56,7 @@ export default () => (
 
 ### danger 属性
 
-标识警告的按钮
+带有警告意味的按钮
 
 ```tsx
 /**
@@ -72,11 +84,12 @@ ghost 属性代表幽灵按钮，适用于有背景的情况下，会将背景�
 ```tsx
 /**
  * defaultShowCode: true
+ * background: black
  */
 import React from 'react'
 import { Space, Button } from 'cosine-ui'
 export default () => (
-  <Space style={{ background: '#1C1C1C', padding: '10px' }}>
+  <Space>
     <Button ghost>Default</Button>
     <Button type="primary" ghost>
       Primary

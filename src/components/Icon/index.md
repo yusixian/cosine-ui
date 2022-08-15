@@ -36,7 +36,7 @@ import { Space, Icon, Button, IconNames } from 'cosine-ui'
 export default () => (
   <Space>
     {IconNames.map((type) => (
-      <Space key={type} direction="vertical">
+      <Space key={type} align="center" direction="vertical">
         <Icon type={type} style={{ fontSize: 46 }} />
         <Button onClick={() => console.log(type)}>{type}</Button>
       </Space>
