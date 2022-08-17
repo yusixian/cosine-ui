@@ -11,6 +11,11 @@ export type IconTypes =
   | 'loading'
   | 'loading-2'
   | 'loading-3'
+  | 'datepicker'
+  | 'arrow-left'
+  | 'arrow-left-2'
+  | 'arrow-right'
+  | 'arrow-right-2'
 
 const IconNames = [
   'search',
@@ -25,5 +30,10 @@ const IconNames = [
   'loading',
   'loading-2',
   'loading-3',
+  'datepicker',
+  'arrow-left',
+  'arrow-left-2',
+  'arrow-right',
+  'arrow-right-2',
 ]
 export default IconNames

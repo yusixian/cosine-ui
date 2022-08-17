@@ -38,9 +38,9 @@ ps: 有些组件如 Space 等就是照着 [antd](https://ant.design/index-cn) �
   - [ ] Modal
   - [ ] Dropdowns
 - feature components 业务中抽离组件
+  - [ ] DatePicker 日期选择器
   - [ ] SearchInput 输入框
   - [ ] Carousel 轮播图
-  - [ ] DatePicker 日期选择器
 
 ## 项目中安装
 

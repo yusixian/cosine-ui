@@ -1,140 +1,66 @@
-/*
- * @Author: cos
- * @Date: 2022-03-11 02:05:20
- * @LastEditTime: 2022-03-11 02:06:29
- * @LastEditors: cos
- * @Description: 日期面板
- * @FilePath: \HTML\project\cosine-ui\src\components\DatePicker\DateInput\DatePanel\index.js
- */
+import classNames from 'classnames'
+import dayjs from 'dayjs'
+import React, { useCallback, useEffect, useState } from 'react'
+import DateHeader from './DateHeader'
+import DayList from './DayList'
 
-import React from 'react'
-import './index.scss'
-
-export type DateItemProps = {
-  curdate: dayjs.Dayjs
-  /** 改变当前月份的函数 */
-  changeMonth: (month: number) => void
-  /** 改变当前年份的函数 */
-  changeYear: (year: number) => void
+export type DatePanelProps = {
+  /** 面板是否显示 为了动画 */
+  active: boolean
+  /** 当前日期 */
+  curDate: dayjs.Dayjs
+  /** 改变当前日期句柄 */
+  changeDate: (date: dayjs.Dayjs) => void
   /** 跳转年面板 */
   handleYear: () => void
   /** 跳转月面板 */
   handleMonth: () => void
 }
-const Day = ({ currentdate, date, onClick }) => {
-  let className = []
-  if (currentdate.isSame(date)) className.push('choosed')
 
-  if (!date.isSame(currentdate, 'month')) {
-    className.push('muted')
-  }
+const DatePanel = ({ active, curDate, changeDate, handleYear, handleMonth }: DatePanelProps) => {
+  const [nowDate, setNowDate] = useState(curDate)
+
+  const changeDay = useCallback(
+    (day: dayjs.Dayjs) => {
+      setNowDate(day)
+    },
+    [nowDate, setNowDate],
+  )
+
+  const changeMonth = useCallback(
+    (month: number) => {
+      setNowDate(dayjs(nowDate.month(month)))
+    },
+    [nowDate, setNowDate],
+  )
+
+  const changeYear = useCallback(
+    (year: number) => {
+      setNowDate(dayjs(nowDate.year(year)))
+    },
+    [nowDate, setNowDate],
+  )
+
+  useEffect(() => {
+    changeDate(nowDate)
+  }, [nowDate, changeDate])
   return (
-    <div onClick={() => onClick(date)} currentdate={date} className={className.join(' ')}>
-      {date.date()}
+    <div
+      className={classNames(
+        'absolute top-full left--3 z-10 m-1 flex min-h-[300px] min-w-[300px] origin-top flex-col rounded border border-gray-100 bg-white py-1 px-3 shadow transition-all',
+        active ? 'scale-y-100' : ' scale-y-0',
+      )}
+    >
+      <DateHeader
+        curDate={nowDate}
+        changeMonth={changeMonth}
+        changeYear={changeYear}
+        handleYear={handleYear}
+        handleMonth={handleMonth}
+      />
+      <DayList changeDay={changeDay} curDate={nowDate} />
     </div>
   )
-}
-const Days = ({ show, date, onClick }) => {
-  const thisDate = moment(date) // 当前日期
-  const nowMonthDays = moment(date).daysInMonth() // 本月所有天数
-  const firstDayDate = moment(date).startOf('month') // 第一天
-  const preMonth = moment(date).subtract(1, 'month') // 上个月
-  const preMonthDays = preMonth.daysInMonth()
-  const nextMonth = moment(date).add(1, 'month')
-  let days = []
-  let labels = []
-
-  for (let i = 1; i <= 7; i++) {
-    // 周一——周天
-    labels.push(
-      <div key={moment().day(i).format('ddd')} className="label">
-        {moment().day(i).format('ddd')}
-      </div>,
-    )
-  }
-
-  for (let i = firstDayDate.day(); i > 1; i--) {
-    // 第一天在星期几
-    preMonth.date(preMonthDays - i + 2)
-    days.push(
-      <Day
-        key={moment(preMonth).format('DD MM YYYY')}
-        onClick={(date) => onClick(date)}
-        currentdate={date}
-        date={moment(preMonth)}
-      />,
-    )
-  }
-
-  for (let i = 1; i <= nowMonthDays; i++) {
-    thisDate.date(i)
-    days.push(
-      <Day
-        key={moment(thisDate).format('DD MM YYYY')}
-        onClick={(date) => onClick(date)}
-        currentdate={date}
-        date={moment(thisDate)}
-      />,
-    )
-  }
-
-  const daysCount = days.length
-  for (let i = 1; i <= 42 - daysCount; i++) {
-    nextMonth.date(i)
-    days.push(
-      <Day
-        key={moment(nextMonth).format('DD MM YYYY')}
-        onClick={(date) => onClick(date)}
-        currentdate={date}
-        date={moment(nextMonth)}
-      />,
-    )
-  }
-  console.log('show:', show)
-  return (
-    <nav className="picker-panel-days" data-active={show}>
-      {labels.concat()}
-      {days.concat()}
-    </nav>
-  )
-}
-class DatePanel extends React.Component {
-  changeDate(d) {
-    this.props.changeDate(d)
-  }
-  changeDay(d) {
-    const { curDate } = this.props
-    curDate.date(d)
-    console.log('changeDay', curDate.format())
-    this.props.changeDate(curDate)
-  }
-  changeMonth(m) {
-    const { curDate } = this.props
-    curDate.month(m)
-    this.props.changeDate(curDate)
-  }
-  changeYear(y) {
-    const { curDate } = this.props
-    curDate.year(y)
-    this.props.changeDate(curDate)
-  }
-  render() {
-    // console.log(this.props.curDate)
-    const { curDate, handleYear, handleMonth } = this.props
-    console.log(curDate.format())
-    return (
-      <div className="picker-panel" data-active={this.props.active}>
-        <DateHeader
-          curdate={curDate}
-          changeMonth={(month) => this.changeMonth(month)}
-          changeYear={(y) => this.changeYear(y)}
-          handleYear={() => handleYear()}
-          handleMonth={() => handleMonth()}
-        />
-        <Days onClick={(date) => this.changeDate(date)} date={curDate} />
-      </div>
-    )
-  }
 }
 
 export default DatePanel

@@ -59,7 +59,6 @@ class MonthPanel extends React.Component {
   }
   render() {
     const { active, curDate } = this.props
-    console.log('Month!')
     return (
       <div className="picker-panel" data-active={active}>
         <MonthHeader curYear={curDate.year()} changeYear={(y) => this.changeYear(y)} />

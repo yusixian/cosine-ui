@@ -13,21 +13,27 @@
 
 ```tsx
 /**
+ * compact: true
  * defaultShowCode: true
  */
 import React, { useState } from 'react'
-import { DatePicker } from 'cosine-ui'
+import { Space, DatePicker } from 'cosine-ui'
 export default () => {
   const [selectDateString, setSelectDateString] = useState('')
   const onChange = (date, dateString) => {
-    console.log(date, dateString)
     setSelectDateString(dateString)
   }
   return (
-    <div className="App">
+    <>
       <div>nowDate: {selectDateString}</div>
-      <DatePicker onDateChange={onChange} />
-    </div>
+      <DatePicker onChange={onChange} />
+    </>
   )
 }
 ```
+
+<API></API>
+
+## 组件源码
+
+<code src="./index.tsx" compact=true defaultShowCode=true></code>
