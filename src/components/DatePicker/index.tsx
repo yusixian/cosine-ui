@@ -1,13 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-// import YearPanel from './YearPanel'
-// import MonthPanel from './MonthPanel'
 import dayjs from 'dayjs'
 import Icon from '../Icon'
 import DatePanel from './DatePanel'
+import YearPanel from './YearPanel'
+import { useClickAway } from 'react-use'
+import MonthPanel from './MonthPanel'
 export type DatePickerProps = {
   /** 日期变化时的回调函数 */
   onChange?: (date: dayjs.Dayjs, dateString?: string) => void
-  /** 默认下面是 */
+  /**
+   * 默认日期
+   * @default nowDate
+   */
   defaultDate?: Date
   /** 组件额外的 CSS className */
   className?: string
@@ -15,99 +19,94 @@ export type DatePickerProps = {
   style?: React.CSSProperties
 }
 const DatePicker = ({ defaultDate, onChange }: DatePickerProps) => {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [curDate] = useState(() => (dayjs(defaultDate).isValid() ? dayjs(defaultDate) : dayjs()))
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [curDate, setCurDate] = useState(() => (dayjs(defaultDate).isValid() ? dayjs(defaultDate) : dayjs())) // 透传
   const [date, setDate] = useState(curDate)
   const [dateString, setDateString] = useState(curDate.format('YYYY-MM-DD'))
-  const [openPanel, setOpenPanel] = useState(false)
+  const [open, setOpen] = useState(false)
   const [panelType, setPanelType] = useState('Date')
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => setIsMounted(true), [setIsMounted])
 
-  // TODO: refactor - HOC
-  const handleDocumentClick = useCallback(
-    (e: Event) => {
-      if (!inputRef.current) {
-        return
-      }
-      /**点击弹窗之内的，不关闭；点击弹窗之外的，关闭 */
-      const target = e.target as HTMLElement
-      if (!inputRef.current.contains(target) && inputRef.current !== target) setOpenPanel(false)
-    },
-    [inputRef, setOpenPanel],
-  )
-  useEffect(() => {
-    document.addEventListener('click', handleDocumentClick)
-    return () => document.removeEventListener('click', handleDocumentClick)
-  }, [isMounted, handleDocumentClick])
+  useClickAway(containerRef, () => {
+    setOpen(false)
+  })
 
-  const changeDate = useCallback(
-    (date: dayjs.Dayjs) => {
-      setDate(date)
-      setDateString(date.format('YYYY-MM-DD'))
-      onChange?.(date, date.format('YYYY-MM-DD'))
-    },
-    [setDate, setDateString, onChange],
-  )
+  const changeDate = (date: dayjs.Dayjs) => {
+    setDate(date)
+    setCurDate(date)
+    setDateString(date.format('YYYY-MM-DD'))
+    onChange?.(date, date.format('YYYY-MM-DD'))
+    setOpen(false)
+  }
 
-  const onInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      let nowValue = e?.target?.value
-      setDateString(nowValue)
-      let newDate = dayjs(nowValue)
-      if (newDate.isValid()) changeDate(newDate)
+  const openPanel = useCallback(
+    (type = 'Date') => {
+      setOpen(true)
+      setPanelType(type ?? 'Date')
     },
-    [setDateString, changeDate],
+    [setOpen, setPanelType],
   )
 
   const openDatePanel = useCallback(() => {
-    setPanelType('Date')
-  }, [setPanelType])
+    openPanel('Date')
+  }, [openPanel])
 
   const openMonthPanel = useCallback(() => {
-    setPanelType('Month')
-  }, [setPanelType])
+    openPanel('Month')
+  }, [openPanel])
 
   const openYearPanel = useCallback(() => {
-    setPanelType('Year')
-  }, [setPanelType])
+    openPanel('Year')
+  }, [openPanel])
 
-  const onInputFocus = useCallback(() => {
-    setOpenPanel(true)
-  }, [setOpenPanel])
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let nowValue = e?.target?.value
+    setDateString(nowValue)
+    let newDate = dayjs(nowValue)
+    if (newDate.isValid()) changeDate(newDate)
+  }
+
+  if (!isMounted) return null
 
   return (
-    <div className=" relative inline-flex items-center rounded border border-gray-400 px-2 py-1 text-gray-400 hover:border-blue-500 hover:text-blue-500 focus:border-blue-500">
+    <div
+      className="relative inline-flex items-center rounded border border-gray-400 px-2 py-1 text-gray-400 hover:border-blue-500 hover:text-blue-500 focus:border-blue-500"
+      ref={containerRef}
+    >
       <input
         className="focus:outline-none"
         type="text"
-        ref={inputRef}
         placeholder="请输入日期"
-        onFocus={onInputFocus}
+        onFocus={openDatePanel}
         value={dateString}
         onChange={onInputChange}
       />
       <Icon type="datepicker" className="text-xl" />
       <DatePanel
-        active={openPanel && panelType === 'Date'}
+        close={() => setOpen(false)}
+        className="min-h-[300px] min-w-[300px]"
+        active={open && panelType === 'Date'}
         curDate={curDate}
         changeDate={changeDate}
         handleYear={openYearPanel}
         handleMonth={openMonthPanel}
       />
-      {/* <YearPanel
-        active={openPanel && panelType === 'Year'}
+      <YearPanel
+        className="min-h-[300px] min-w-[300px]"
+        active={open && panelType === 'Year'}
         curDate={curDate}
-        changeDate={changeDate}
-        handleDate={openDatePanel}
+        onChange={changeDate}
+        openDayPanel={openDatePanel}
       />
       <MonthPanel
-        active={openPanel && panelType === 'Month'}
+        className="min-h-[300px] min-w-[300px]"
+        active={open && panelType === 'Month'}
         curDate={curDate}
-        changeDate={changeDate}
-        handleDate={openDatePanel} 
-      />*/}
+        onChange={changeDate}
+        openDayPanel={openDatePanel}
+      />
     </div>
   )
 }

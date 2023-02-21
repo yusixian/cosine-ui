@@ -20,13 +20,13 @@ const DateHeader = ({ curDate, changeMonth, changeYear, handleYear, handleMonth,
     <div className="flex items-center justify-between gap-1 border-b border-gray-300 px-1 py-2">
       <Icon type="arrow-left-2" className={iconClassName} onClick={() => changeYear(curDate.year() - 1)} />
       <Icon type="arrow-left" className={iconClassName} onClick={() => changeMonth(curDate.month() - 1)} />
-      <div className="flex flex-grow items-center justify-center gap-2 text-black hover:text-blue-500">
-        <a href="#!" onClick={() => handleYear()}>
+      <div className="flex flex-grow items-center justify-center gap-2 text-black">
+        <div className="cursor-pointer hover:text-blue-500" onClick={() => handleYear()}>
           {curDate.format('YYYY')}年
-        </a>
-        <a href="#!" onClick={() => handleMonth()}>
+        </div>
+        <div className="cursor-pointer hover:text-blue-500" onClick={() => handleMonth()}>
           {curDate.format('M')}月
-        </a>
+        </div>
       </div>
       <Icon type="arrow-right" className={iconClassName} onClick={() => changeMonth(curDate.month() + 1)} />
       <Icon type="arrow-right-2" className={iconClassName} onClick={() => changeYear(curDate.year() + 1)} />

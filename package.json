@@ -52,6 +52,7 @@
     "dayjs": "^1.11.5",
     "react": "^18.0.0",
     "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
     "styled-components": "^5.3.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
